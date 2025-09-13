@@ -1,6 +1,6 @@
 # Three Goods Economic Model
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/YOUR_USERNAME/YOUR_REPO_NAME/main?urlpath=lab/tree/three_goods.jl)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/robbedemey/Rent-Model/main?urlpath=lab/tree/three_goods.jl)
 
 An interactive economic model for analyzing three goods with demand-supply equilibrium, freight costs, and consumer/producer surplus visualization.
 
