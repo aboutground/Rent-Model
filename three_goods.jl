@@ -1,5 +1,6 @@
 using Pkg
 Pkg.activate(".")
+Pkg.instantiate()
 using Makie
 using GLMakie
 using LinearAlgebra
@@ -19,7 +20,7 @@ end
 include("plot_models.jl")
 
 # Create one comprehensive figure - larger to accommodate 3 goods
-fig = Figure(size=(2000, 1200))
+fig = Figure(size=(1350, 1000))
 
 # Create slider control panel on the right side for Good 1
 Label(fig[1, 5], "Good 1 Controls", fontsize=14, tellwidth=false, halign=:center)
@@ -29,11 +30,11 @@ Label(grid_0[1, 2], "D₀", fontsize=10, tellwidth=false, halign=:center)
 Label(grid_0[1, 3], "D₁₀₀", fontsize=10, tellwidth=false, halign=:center)
 Label(grid_0[1, 4], "M₁₀₀", fontsize=10, tellwidth=false, halign=:center)
 Label(grid_0[1, 5], "F₁₀₀", fontsize=10, tellwidth=false, halign=:center)
-slider_P_M_0 = Slider(grid_0[2, 1], range=0:1:100, startvalue=70, height=150, horizontal=false)
+slider_P_M_0 = Slider(grid_0[2, 1], range=0:1:100, startvalue=40, height=150, horizontal=false)
 slider_D0_0 = Slider(grid_0[2, 2], range=0:1:100, startvalue=90, height=150, horizontal=false)
 slider_D100_0 = Slider(grid_0[2, 3], range=0:1:100, startvalue=30, height=150, horizontal=false)
 slider_M100_0 = Slider(grid_0[2, 4], range=0:1:100, startvalue=75, height=150, horizontal=false)
-slider_F100_0 = Slider(grid_0[2, 5], range=0:1:100, startvalue=55, height=150, horizontal=false)
+slider_F100_0 = Slider(grid_0[2, 5], range=0:1:100, startvalue=15, height=150, horizontal=false)
 
 # Good 2 controls
 Label(fig[2, 5], "Good 2 Controls", fontsize=14, tellwidth=false, halign=:center)
@@ -47,7 +48,7 @@ slider_P_M_1 = Slider(grid_1[2, 1], range=0:1:100, startvalue=75, height=150, ho
 slider_D0_1 = Slider(grid_1[2, 2], range=0:1:100, startvalue=70, height=150, horizontal=false)
 slider_D100_1 = Slider(grid_1[2, 3], range=0:1:100, startvalue=10, height=150, horizontal=false)
 slider_M100_1 = Slider(grid_1[2, 4], range=0:1:100, startvalue=95, height=150, horizontal=false)
-slider_F100_1 = Slider(grid_1[2, 5], range=0:1:100, startvalue=15, height=150, horizontal=false)
+slider_F100_1 = Slider(grid_1[2, 5], range=0:1:100, startvalue=55, height=150, horizontal=false)
 
 # Good 3 controls
 Label(fig[3, 5], "Good 3 Controls", fontsize=14, tellwidth=false, halign=:center)
@@ -59,24 +60,27 @@ Label(grid_2[1, 4], "M₁₀₀", fontsize=10, tellwidth=false, halign=:center)
 Label(grid_2[1, 5], "F₁₀₀", fontsize=10, tellwidth=false, halign=:center)
 slider_P_M_2 = Slider(grid_2[2, 1], range=0:1:100, startvalue=85, height=150, horizontal=false)
 slider_D0_2 = Slider(grid_2[2, 2], range=0:1:100, startvalue=90, height=150, horizontal=false)
-slider_D100_2 = Slider(grid_2[2, 3], range=0:1:100, startvalue=50, height=150, horizontal=false)
+slider_D100_2 = Slider(grid_2[2, 3], range=0:1:100, startvalue=20, height=150, horizontal=false)
 slider_M100_2 = Slider(grid_2[2, 4], range=0:1:100, startvalue=85, height=150, horizontal=false)
 slider_F100_2 = Slider(grid_2[2, 5], range=0:1:100, startvalue=5, height=150, horizontal=false)
 
 # Create PlotSingleGood instances with figure positions
 psg0 = PlotSingleGood(fig[1, 1], 
+    alpha=0.2,
     P_M=slider_P_M_0.value[],
     D_0=slider_D0_0.value[], 
     D_100=slider_D100_0.value[], 
     M_100=slider_M100_0.value[], 
     F_100=slider_F100_0.value[])
 psg1 = PlotSingleGood(fig[1, 2], 
+    alpha=0.3,
     P_M=slider_P_M_1.value[],
     D_0=slider_D0_1.value[], 
     D_100=slider_D100_1.value[], 
     M_100=slider_M100_1.value[], 
     F_100=slider_F100_1.value[])
-psg2 = PlotSingleGood(fig[1, 3], 
+psg2 = PlotSingleGood(fig[1, 3],
+    alpha=0.4,
     P_M=slider_P_M_2.value[],
     D_0=slider_D0_2.value[], 
     D_100=slider_D100_2.value[], 

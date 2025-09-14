@@ -46,10 +46,10 @@ function add_point!(plot::Plot, x::Float64, y::Float64; kwargs...)
     return scatter!(plot.ax, [x], [y]; markersize=10.0, kwargs...)
 end
 
-function add_band!(plot::Plot, f1::Function, f2::Function, x_range::Vector{Float64}; color::String="black", kwargs...)
+function add_band!(plot::Plot, f1::Function, f2::Function, x_range::Vector{Float64}; color::String="black", alpha::Float64=0.3, kwargs...)
     y0_data = Float64[f1(x) for x in x_range]
     y1_data = Float64[f2(x) for x in x_range]
-    return band!(plot.ax, x_range, y0_data, y1_data; color=(Symbol(color), 0.3), kwargs...)
+    return band!(plot.ax, x_range, y0_data, y1_data; color=(Symbol(color), alpha), kwargs...)
 end
 
 function add_vlines!(plot::Plot, point::Point{2, Float64}; color::String="gray", linestyle::Symbol=:solid)
@@ -70,7 +70,27 @@ function add_legend!(plot::Plot)
         padding=(4, 4, 4, 4))   # Smaller padding around legend
 end
 
+function add_axis_labels!(plot::Plot, x_val::Float64, y_val::Float64; x_precision::Int=1, y_precision::Int=1)
+    current_xticks = plot.ax.xticks[]
+    current_yticks = plot.ax.yticks[]
+    x_rounded = round(x_val, digits=x_precision)
+    y_rounded = round(y_val, digits=y_precision)
+    if current_xticks isa AbstractVector
+        plot.ax.xticks = sort(unique(vcat(current_xticks, x_rounded)))
+    else
+        plot.ax.xticks = sort(unique([0.0, 100.0, x_rounded]))
+    end
+    if current_yticks isa AbstractVector
+        plot.ax.yticks = sort(unique(vcat(current_yticks, y_rounded)))
+    else
+        plot.ax.yticks = sort(unique([0.0, 100.0, y_rounded]))
+    end
+    return nothing
+end
+
 function clear!(plot::Plot)
     empty!(plot.ax)
+    plot.ax.xticks = [0.0, 100.0]
+    plot.ax.yticks = [0.0, 100.0]
     return nothing
 end
